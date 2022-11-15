@@ -1,0 +1,106 @@
+import java.util.Scanner;
+
+public class ATM_Machines {
+	public static void main(String[] args) {
+		BankAccount obj1 = new BankAccount("    :jaseelan", " : AST81");
+		obj1.showMenue();
+	}
+}
+
+class BankAccount {
+	int balance;
+	int previousTransation;
+	String CustomerName;
+	String CustomerId;
+
+	BankAccount(String Name, String Id) {
+		CustomerName = Name;
+		CustomerId = Id;
+	}
+
+	void deposit(int Amount) {
+		if (Amount != 0) {
+			balance = balance + Amount;
+			previousTransation = Amount;
+		}
+	}
+
+	void withdraw(int Amount) {
+		if (Amount != 0) {
+			balance = balance - Amount;
+		}
+	}
+
+	void getPreviousTransaction() {
+		if (previousTransation > 0) {
+			System.out.println("Deposited:" + previousTransation);
+		} else if (previousTransation < 0) {
+			System.out.println("Withdawn:" + Math.abs(previousTransation));
+		} else {
+			System.out.println("No Transation occured");
+		}
+
+	}
+
+	void showMenue() {
+		char option = '\0';
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Welcome" + CustomerName);
+		System.out.println("Your Id is" + CustomerId);
+		System.out.println("\n");
+		System.out.println("A. Check Balance");
+		System.out.println("B. Deposited");
+		System.out.println("C. withdraw");
+		System.out.println("D. previousTransation ");
+		System.out.println("D. Exit");
+		do {
+			System.out.println("================");
+			System.out.println("Enter an options");
+			System.out.println("================");
+			option = scanner.next().charAt(0);
+			System.out.println("\n");
+
+			switch (option) {
+			case 'A':
+				System.out.println("------------------");
+				System.out.println("Balance=" + balance);
+				System.out.println("------------------");
+				System.out.println("\n");
+				break;
+			case 'B':
+				System.out.println("---------------------------");
+				System.out.println("Enter an amount to deposit:");
+				System.out.println("---------------------------");
+				int amount = scanner.nextInt();
+				deposit(amount);
+				System.out.println("\n");
+				break;
+
+			case 'C':
+				System.out.println("----------------------------");
+				System.out.println("Enter an amount to Withdraw:");
+				System.out.println("----------------------------");
+				int amount2 = scanner.nextInt();
+				withdraw(amount2);
+				System.out.println("\n");
+				break;
+
+			case 'D':
+				System.out.println("-----------");
+				getPreviousTransaction();
+				System.out.println("-----------");
+				System.out.println("\n");
+				break;
+			case 'E':
+				System.out.println("**********************");
+				break;
+			default:
+				System.out.println("Invalid Option! please enter again");
+			}
+
+		} while (option != 'E');
+		scanner.close();
+	}
+
+}
